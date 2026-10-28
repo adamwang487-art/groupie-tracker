@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Groupie tracker</title>
+
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    >
+
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+<h1>Starbox</h1>
+
+
+<div class="search-filter-container">
+
+    <!-- Barre de recherche -->
+    <div class="search-container">
+
+    <div class="search-box">
+
+        <input
+            type="text"
+            id="search"
+            placeholder="Rechercher un groupe..."
+            onkeyup="searchGroup()">
+
+        <div id="results" class="results"></div>
+
+    </div>
+
+    <button
+        id="filterButton"
+        type="button"
+        onclick="toggleFilters()"
+    >
+        Filtres
+    </button>
+
+    </div>
+
+
+    <!-- Section des filtres -->
+    <div id="filtersPanel" class="filters-panel">
+        <!-- Blocs des filtres -->
+        <div class="filters-container">
+
+            <!-- Date de création -->
+            <div class="filter">
+
+                <h3>Date de création</h3>
+
+                <div class="range-value">
+                    <span>Min : </span>
+                    <span id="creationMinValue">1960</span>
+                </div>
+
+                <div class="range-slider">
+                <input
+                    type="range"
+                    id="creationMin"
+                    min="1960"
+                    max="2020"
+                    value="1960">
+                </div>
+
+                <div class="range-value">
+                    <span>Max : </span>
+                    <span id="creationMaxValue">2020</span>
+                </div>
+
+                <div class="range-slider">
+                <input
+                    type="range"
+                    id="creationMax"
+                    min="1960"
+                    max="2020"
+                    value="2020">
+                </div>
+
+            </div>
+
+
+            <!-- Date du premier album -->
+            <div class="filter">
+
+                <h3>Date du 1er album</h3>
+
+                <div class="range-value">
+                    <span>Min : </span>
+                    <span id="albumMinValue">1960</span>
+                </div>
+
+                <div class="range-slider">
+                <input
+                    type="range"
+                    id="albumMin"
+                    min="1960"
+                    max="2020"
+                    value="1960">
+                </div>
+
+                <div class="range-value">
+                    <span>Max : </span>
+                    <span id="albumMaxValue">2020</span>
+                </div>
+
+                <div class="range-slider">
+                <input
+                    type="range"
+                    id="albumMax"
+                    min="1960"
+                    max="2020"
+                    value="2020">
+                </div>
+
+            </div>
+
+
+            <!-- Nombre de membres -->
+            <div class="filter members-filter">
+
+                <h3>Nombre de membres</h3>
+
+                <div class="member-checkboxes">
+
+                    <label>
+                        <input type="checkbox" value="1">
+                        1
+                    </label>
+
+                    <label>
+                        <input type="checkbox" value="2">
+                        2
+                    </label>
+
+                    <label>
+                        <input type="checkbox" value="3">
+                        3
+                    </label>
+
+                    <label>
+                        <input type="checkbox" value="4">
+                        4
+                    </label>
+
+                    <label>
+                        <input type="checkbox" value="5">
+                        5
+                    </label>
+
+                    <label>
+                        <input type="checkbox" value="6">
+                        6
+                    </label>
+
+                    <label>
+                        <input type="checkbox" value="7">
+                        7
+                    </label>
+
+                </div>
+
+            </div>
+
+
+            <!-- Lieux -->
+            <div class="filter location-filter">
+
+                <h3>Lieux des concerts</h3>
+
+                <input
+                    type="text"
+                    id="locationSearch"
+                    placeholder="Rechercher un pays ou une ville..."
+                    autocomplete="off">
+
+                <div id="locationResults"></div>
+
+                <div id="selectedLocations"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="container">
+
+    {{range .}}
+
+    <div class="card"
+         onclick="showInfo(this)"
+         data-name="{{.Name}}"
+         data-creation="{{.CreationDate}}"
+         data-firstalbum="{{.FirstAlbum}}"
+         data-image="{{.Image}}"
+         data-members='{{toJSON .Members}}'
+         data-locations='{{toJSON .Locations}}'
+         data-dates='{{toJSON .Dates}}'
+         data-concerts='{{toJSON .Concerts}}'
+         data-coordinates='{{toJSON .Coordinates}}'
+         data-music="/static/music/{{.ID}}.mp3">
+
+        <img src="{{.Image}}" alt="{{.Name}}">
+
+        <h2 class="group-name">{{.Name}}</h2>
+
+    </div>
+
+    {{end}}
+
+</div>
+
+<div id="modal" class="modal">
+
+    <div class="info-box">
+
+        <button class="close" onclick="closeInfo()">X</button>
+        <img id="image" src="" alt="Image du groupe">
+
+        <h1 id="name"></h1>
+
+        <div class="info-card first-album">
+
+            <h3>Premier album</h3>
+
+            <p id="firstAlbum"></p>
+
+        </div>
+
+        <div class="info-grid">
+
+
+            <div class="info-card">
+
+                <h3>Membres</h3>
+
+                <ul id="members"></ul>
+
+            </div>
+
+            <div class="info-card">
+
+                <h3>Concerts</h3>
+
+                <ul id="concerts"></ul>
+
+            </div>
+
+            <div class="info-card">
+
+                <h3>Lieux</h3>
+                <ul id="locations"></ul>
+
+            </div>
+
+            <div class="info-card">
+
+                <h3>Dates</h3>
+                <ul id="dates"></ul>
+
+            </div>
+
+        </div>
+
+        <div class="map-container">
+            <h3>Carte des concerts</h3>
+            <div id="map"></div>
+        </div>
+
+    </div>
+
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script src="/static/bloc.js"></script>
+<script src="/static/filtres.js"></script>
+<script src="/static/bar.js"></script>
+<script src="/static/map.js"></script>
+<script src="/static/music.js"></script>
+
+</body>
+</html>

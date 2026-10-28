@@ -1,0 +1,1106 @@
+/* ================================================== */
+/* GENERAL                                            */
+/* ================================================== */
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f4f4;
+}
+
+h1 {
+    text-align: center;
+    margin: 30px 0;
+    color: #333;
+}
+
+
+/* ================================================== */
+/* RECHERCHE ET FILTRES                               */
+/* ================================================== */
+
+.search-filter-container {
+    width: 100%;
+    margin: 20px 0 40px 0;
+    box-sizing: border-box;
+}
+
+
+/* ================================================== */
+/* BARRE DE RECHERCHE                                 */
+/* ================================================== */
+
+.search-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    width: 100%;
+
+    position: relative;
+}
+
+
+/* Bloc contenant la barre + suggestions */
+
+.search-box {
+    position: relative;
+
+    width: 350px;
+}
+
+
+/* Barre principale */
+
+.search-container input {
+    width: 350px;
+    height: 45px;
+
+    padding: 12px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #ccc;
+
+    border-radius: 8px;
+
+    outline: none;
+
+    font-size: 15px;
+}
+
+.search-container input:focus {
+    border-color: #777;
+}
+
+
+/* ================================================== */
+/* SUGGESTIONS DE RECHERCHE                           */
+/* ================================================== */
+
+.results {
+    position: absolute;
+    top: 45px;
+    left: 0;
+    width: 350px;
+    max-height: 300px;
+    overflow-y: auto;
+    background: white;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    box-sizing: border-box;
+}
+
+.result {
+    padding: 10px 15px;
+
+    cursor: pointer;
+}
+
+.result:hover {
+    background: #f0f0f0;
+}
+
+
+/* ================================================== */
+/* BOUTON FILTRES                                     */
+/* ================================================== */
+
+#filterButton {
+    height: 45px;
+
+    padding: 0 18px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: #333;
+
+    color: white;
+
+    font-size: 15px;
+
+    cursor: pointer;
+
+    white-space: nowrap;
+}
+
+#filterButton:hover {
+    background: #555;
+}
+
+
+/* ================================================== */
+/* PANNEAU COMPLET DES FILTRES                        */
+/* ================================================== */
+
+#filtersPanel {
+    display: none !important;
+
+    width: 70%;
+    margin: 20px auto 0 auto;
+    padding: 15px;
+
+    box-sizing: border-box;
+
+    background: #eeeeee;
+    border-radius: 12px;
+}
+
+#filtersPanel.open {
+    display: block !important;
+}
+
+
+/* ================================================== */
+/* CONTENEUR DES FILTRES                              */
+/* ================================================== */
+
+.filters-container {
+    display: flex;
+
+    align-items: stretch;
+
+    gap: 15px;
+
+    width: 100%;
+}
+
+
+/* ================================================== */
+/* BLOCS DES FILTRES                                  */
+/* ================================================== */
+
+.filter {
+    flex: 1;
+
+    min-width: 0;
+
+    padding: 10px;
+
+    box-sizing: border-box;
+
+    background: white;
+
+    border-radius: 10px;
+
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+.filter h3 {
+    margin: 0 0 8px 0;
+
+    text-align: center;
+
+    font-size: 15px;
+
+    color: #333;
+}
+
+
+/* ================================================== */
+/* FILTRE : DATE                                      */
+/* ================================================== */
+
+.range-value {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 3px;
+    font-size: 14px;
+    color: #333;
+}
+
+.range-slider {
+    position: relative;
+
+    width: 100%;
+    height: 30px;
+}
+
+.range-slider input {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 30px;
+    margin: 0;
+    pointer-events: none;
+    appearance: none;
+    background: transparent;
+}
+
+.range-slider input::-webkit-slider-thumb {
+    pointer-events: auto;
+}
+
+.range-slider input::-moz-range-thumb {
+    pointer-events: auto;
+}
+
+/* Barre */
+
+.range-slider input::-webkit-slider-runnable-track {
+    height: 4px;
+
+    background: #ccc;
+
+    border-radius: 5px;
+    z-index: 0;
+}
+
+
+/* Curseur */
+
+.range-slider input::-webkit-slider-thumb {
+    appearance: none;
+
+    width: 16px;
+    height: 16px;
+
+    margin-top: -6px;
+
+    border-radius: 50%;
+
+    background: #333;
+
+    pointer-events: auto;
+
+    cursor: pointer;
+}
+
+
+/* Firefox */
+
+.range-slider input::-moz-range-track {
+    height: 4px;
+
+    background: #ccc;
+
+    border-radius: 5px;
+}
+
+.range-slider input::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: #333;
+
+    pointer-events: auto;
+
+    cursor: pointer;
+}
+
+
+/* ================================================== */
+/* FILTRE : MEMBRES                                   */
+/* ================================================== */
+
+.members-filter {
+    flex: 0 0 120px;
+}
+
+.member-checkboxes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.member-checkboxes label {
+    display: flex;
+
+    flex-direction: column;
+    align-items: center;
+
+    font-size: 13px;
+
+    color: #333;
+}
+
+.member-checkboxes input {
+    margin: 0 0 4px 0;
+
+    cursor: pointer;a
+}
+
+
+/* ================================================== */
+/* FILTRE : LIEUX                                     */
+/* ================================================== */
+
+.location-filter {
+    position: relative;
+
+    flex: 0 0 40%;
+
+    min-width: 0;
+
+    max-height: 250px;
+
+    overflow: visible;
+}
+
+.location-filter input {
+    width: 100%;
+
+    height: 35px;
+
+    padding: 8px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #ccc;
+
+    border-radius: 6px;
+
+    outline: none;
+}
+
+.location-filter input:focus {
+    border-color: #777;
+}
+
+
+/* ================================================== */
+/* SUGGESTIONS DE LIEUX                               */
+/* ================================================== */
+
+#locationResults {
+    position: absolute;
+
+    top: 67px;
+    left: 10px;
+
+    width: calc(100% - 20px);
+
+    max-height: 112px;
+
+    overflow-y: auto;
+
+    background: white;
+
+    border-radius: 8px;
+
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+
+    z-index: 100;
+
+    box-sizing: border-box;
+}
+
+.location-result {
+    padding: 9px 12px;
+
+    cursor: pointer;
+
+    font-size: 14px;
+}
+
+.location-result:hover {
+    background: #eeeeee;
+}
+
+
+/* ================================================== */
+/* LIEUX SÉLECTIONNÉS                                */
+/* ================================================== */
+
+#selectedLocations {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+    margin-top: 10px;
+}
+
+.location-tag {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 7px 10px;
+
+    background: #f1f1f1;
+
+    border: 1px solid #ccc;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+
+    color: #333;
+
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
+}
+
+.location-tag button {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 20px;
+    height: 20px;
+
+    padding: 0;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: #ddd;
+
+    color: #555;
+
+    font-size: 15px;
+
+    line-height: 1;
+
+    cursor: pointer;
+}
+
+.location-tag button:hover {
+    background: #bbb;
+
+    color: white;
+}
+
+
+/* ================================================== */
+/* CARTES DES GROUPES                                 */
+/* ================================================== */
+
+.container {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    justify-content: center;
+
+    gap: 25px;
+
+    padding: 20px;
+}
+
+.card {
+    width: 200px;
+
+    background: white;
+
+    border-radius: 15px;
+
+    overflow: hidden;
+
+    cursor: pointer;
+
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card img {
+    display: block;
+
+    width: 100%;
+    height: 150px;
+
+    object-fit: cover;
+}
+
+.card h2 {
+    text-align: center;
+
+    padding: 10px;
+    margin: 0;
+
+    font-size: 20px;
+}
+
+
+/* ================================================== */
+/* FENÊTRE D'INFORMATION                              */
+/* ================================================== */
+
+.modal {
+    display: none;
+
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0, 0, 0, 0.6);
+
+    overflow-y: auto;
+
+    z-index: 1000;
+}
+
+.info-box {
+    width: 85%;
+
+    max-width: 800px;
+
+    margin: 30px auto;
+
+    padding: 20px;
+
+    background: white;
+
+    border-radius: 15px;
+
+    position: relative;
+
+    box-sizing: border-box;
+
+    display: grid;
+
+    grid-template-columns: 180px 1fr;
+
+    grid-template-rows: auto auto auto;
+
+    gap: 15px 20px;
+}
+
+
+/* ================================================== */
+/* BOUTON FERMER                                      */
+/* ================================================== */
+
+.close {
+    position: absolute;
+
+    top: 15px;
+    right: 15px;
+
+    width: 40px;
+    height: 40px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: crimson;
+
+    color: white;
+
+    font-size: 20px;
+
+    cursor: pointer;
+}
+
+.close:hover {
+    background: #b00020;
+}
+
+
+/* ================================================== */
+/* IMAGE DU GROUPE                                    */
+/* ================================================== */
+
+#image {
+    grid-column: 1;
+
+    grid-row: 1 / 3;
+
+    width: 180px;
+    height: 180px;
+
+    object-fit: cover;
+
+    border-radius: 12px;
+
+    border: 3px solid #ddd;
+}
+
+
+/* ================================================== */
+/* NOM DU GROUPE                                      */
+/* ================================================== */
+
+#name {
+    grid-column: 2;
+
+    grid-row: 1;
+
+    margin: 0;
+
+    font-size: 30px;
+
+    text-align: center;
+}
+
+
+/* ================================================== */
+/* PREMIER ALBUM                                      */
+/* ================================================== */
+
+.first-album {
+    grid-column: 2;
+
+    grid-row: 2;
+
+    padding: 10px;
+
+    background: #fafafa;
+
+    border: 1px solid #ddd;
+
+    border-radius: 10px;
+
+    text-align: center;
+}
+
+.first-album h3 {
+    margin: 0 0 5px 0;
+}
+
+.first-album p {
+    margin: 0;
+
+    font-size: 18px;
+
+    font-weight: bold;
+}
+
+
+/* ================================================== */
+/* BLOCS INFORMATIONS                                 */
+/* ================================================== */
+
+.info-grid {
+    grid-column: 1 / 3;
+
+    grid-row: 3;
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 15px;
+}
+
+
+/* Membres */
+
+.info-grid .info-card:nth-child(1) {
+    order: 1;
+
+    grid-column: 1 / 3;
+}
+
+
+/* Lieux */
+
+.info-grid .info-card:nth-child(3) {
+    order: 2;
+
+    grid-column: 1;
+}
+
+
+/* Dates */
+
+.info-grid .info-card:nth-child(4) {
+    order: 3;
+
+    grid-column: 2;
+}
+
+
+/* Concerts */
+
+.info-grid .info-card:nth-child(2) {
+    order: 4;
+
+    grid-column: 1 / 3;
+}
+
+
+/* ================================================== */
+/* STYLE DES BLOCS INFORMATIONS                       */
+/* ================================================== */
+
+.info-card {
+    background: #fafafa;
+
+    border-radius: 10px;
+
+    padding: 12px;
+
+    border: 1px solid #ddd;
+
+    box-sizing: border-box;
+}
+
+.info-card h3 {
+    margin: 0 0 8px 0;
+
+    color: #1f6feb;
+
+    border-bottom: 1px solid #ddd;
+
+    padding-bottom: 5px;
+
+    text-align: center;
+}
+
+
+/* ================================================== */
+/* MEMBRES                                            */
+/* ================================================== */
+
+.info-grid .info-card:first-child ul {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+    padding: 0;
+    margin: 0;
+
+    list-style: none;
+}
+
+.info-grid .info-card:first-child li {
+    background: #e9f2ff;
+
+    padding: 6px 10px;
+
+    border-radius: 8px;
+
+    margin: 0;
+}
+
+
+/* ================================================== */
+/* LIEUX                                              */
+/* ================================================== */
+
+.info-grid .info-card:nth-child(3) ul {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+    padding: 0;
+    margin: 0;
+
+    list-style: none;
+}
+
+.info-grid .info-card:nth-child(3) li {
+    background: #f1f1f1;
+
+    padding: 6px 10px;
+
+    border-radius: 8px;
+
+    margin: 0;
+}
+
+
+/* ================================================== */
+/* DATES                                              */
+/* ================================================== */
+
+.info-grid .info-card:nth-child(4) ul {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+    padding: 0;
+    margin: 0;
+
+    list-style: none;
+}
+
+.info-grid .info-card:nth-child(4) li {
+    background: #f1f1f1;
+
+    padding: 6px 10px;
+
+    border-radius: 8px;
+
+    margin: 0;
+}
+
+/* ================================================== */
+/* CONCERTS                                           */
+/* ================================================== */
+
+.info-grid .info-card:nth-child(2) #concerts {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 10px;
+
+    padding: 0;
+
+    margin: 0;
+
+    list-style: none;
+}
+
+
+.concert-location {
+    background: #f1f1f1;
+
+    border: 1px solid #ddd;
+
+    border-radius: 8px;
+
+    padding: 10px;
+
+    box-sizing: border-box;
+}
+
+
+.concert-location strong {
+    display: block;
+
+    margin-bottom: 6px;
+
+    font-size: 15px;
+
+    color: #333;
+}
+
+
+.concert-dates {
+    margin: 0;
+
+    padding-left: 18px;
+
+    list-style: disc;
+}
+
+
+.concert-dates li {
+    margin: 3px 0;
+
+    font-size: 14px;
+
+    color: #555;
+}
+
+/* ================================================== */
+/* CARTE DES CONCERTS                                 */
+/* ================================================== */
+
+.map-container {
+    grid-column: 1 / 3;
+
+    width: 100%;
+
+    margin-top: 15px;
+
+    box-sizing: border-box;
+}
+
+.map-container h3 {
+    text-align: center;
+
+    color: #1f6feb;
+}
+
+#map {
+    width: 100%;
+
+    height: 400px;
+
+    border-radius: 10px;
+
+    border: 1px solid #ddd;
+}
+
+/* ================================================== */
+/* RESPONSIVE                                         */
+/* ================================================== */
+
+@media (max-width: 1000px) {
+
+    #filtersPanel {
+        width: 90%;
+    }
+
+    .filters-container {
+        flex-wrap: wrap;
+    }
+
+    .filter {
+        flex: 1 1 calc(50% - 15px);
+    }
+
+    .members-filter {
+        flex: 1 1 calc(50% - 15px);
+    }
+
+    .location-filter {
+        flex: 1 1 100%;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    h1 {
+        font-size: 28px;
+
+        margin: 20px 0;
+    }
+
+
+    /* Recherche */
+
+    .search-container {
+        width: 90%;
+    }
+
+    .search-box {
+        width: 100%;
+    }
+
+    .search-container input {
+        width: 100%;
+    }
+
+    .results {
+        width: 100%;
+    }
+
+
+    /* Bouton */
+
+    #filterButton {
+        padding: 0 12px;
+    }
+
+
+    /* Filtres */
+
+    #filtersPanel {
+        width: 95%;
+
+        padding: 10px;
+    }
+
+    .filters-container {
+        flex-direction: column;
+
+        gap: 10px;
+    }
+
+    .filter,
+    .members-filter,
+    .location-filter {
+        flex: none;
+
+        width: 100%;
+    }
+
+
+    /* Cartes */
+
+    .container {
+        gap: 15px;
+
+        padding: 15px;
+    }
+
+    .card {
+        width: 160px;
+    }
+
+    .card img {
+        height: 120px;
+    }
+
+    .card h2 {
+        font-size: 17px;
+    }
+
+
+    /* Fenêtre d'information */
+
+    .info-box {
+        width: 95%;
+
+        margin: 15px auto;
+
+        padding: 15px;
+
+        display: block;
+    }
+
+    #image {
+        display: block;
+
+        width: 150px;
+        height: 150px;
+
+        margin: 0 auto 15px auto;
+    }
+
+    #name {
+        margin-bottom: 15px;
+
+        font-size: 25px;
+    }
+
+    .first-album {
+        margin-bottom: 15px;
+    }
+
+    .info-grid {
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 10px;
+    }
+
+    .info-grid .info-card:nth-child(1),
+    .info-grid .info-card:nth-child(2),
+    .info-grid .info-card:nth-child(3),
+    .info-grid .info-card:nth-child(4) {
+        grid-column: auto;
+    }
+
+
+    /* Map */
+
+    #map {
+        height: 300px;
+    }
+}
